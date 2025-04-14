@@ -21,7 +21,6 @@ EgoVision/
 │   ├── camera_calibration.py
 │   ├── preprocessing.py
 │   └── augmentation.py
-├── EgoVision Description.docx
 └── README.md
 ```
 

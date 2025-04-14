@@ -1,7 +1,7 @@
 
 # EgoVision Dataset
 
-The **EgoVision** dataset is a curated collection of 3,064 high-quality (1920×1440) images collected from seven construction-related environments. Designed for egocentric vision tasks in construction safety and automation, this dataset supports various vision-related applications (e.g., image classification, object detection, and semantic segmentation).
+The **EgoVision** dataset is a curated collection of 2,904 high-quality (1920×1440) images collected from seven construction-related environments. Designed for egocentric vision tasks in construction safety and automation, this dataset supports various vision-related applications (e.g., image classification, object detection, and semantic segmentation).
 
 ## 📁 Dataset Structure
 
@@ -27,29 +27,11 @@ EgoVision/
 
 ## 📷 Dataset Overview
 
-- **Total Images**: 3,064  
+- **Total Images**: 2,904  
 - **Indoor Scenes**: 1,464 images from 3 environments  
 - **Outdoor Scenes**: 1,440 images from 5 environments  
 - **Perspective**: Egocentric (first-person) view  
 - **Image Size**: 1920×1440 pixels  
-- **Supported Tasks**:
-  - Hazard classification
-  - Object detection
-  - Semantic segmentation
-
-## ⚙️ Step-by-Step Processing Instructions
-
-### 1. 📌 Clone and Setup Environment
-
-```bash
-git clone https://github.com/your-repo/egovision-dataset.git
-cd egovision-dataset
-pip install -r requirements.txt
-```
-
-Ensure you have installed OpenCV, NumPy, and other dependencies required by the three scripts.
-
-## ⚙️ Step-by-Step Processing Instructions
 
 ### 1. 📌 Clone and Setup Environment
 

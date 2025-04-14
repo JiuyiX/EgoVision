@@ -33,12 +33,11 @@ EgoVision/
 - **Perspective**: Egocentric (first-person) view  
 - **Image Size**: 1920×1440 pixels  
 
-### 1. 📌 Clone and Setup Environment
+### 1. 📌 Download our EgoVision
 
 ```bash
-git clone https://github.com/your-repo/egovision-dataset.git
-cd egovision-dataset
-pip install -r requirements.txt
+git clone https://github.com/JiuyiX/EgoVision.git
+cd EgoVision
 ```
 
 Ensure you have installed OpenCV, NumPy, PIL, and torchvision as required by the scripts.

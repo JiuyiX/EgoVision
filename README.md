@@ -3,20 +3,19 @@
 
 The **EgoVision** dataset is a curated collection of 3,064 high-quality (1920×1440) images collected from seven construction-related environments. Designed for egocentric vision tasks in construction safety and automation, this dataset supports various vision-related applications (e.g., image classification, object detection, and semantic segmentation).
 
-## 📁 Folder Structure
+## 📁 Dataset Structure
 
 ```
 EgoVision/
-├── indoor/
-│   ├── env1/
-│   ├── env2/
-│   └── env3/
-├── outdoor/
-│   ├── env1/
-│   ├── env2/
-│   ├── env3/
-│   ├── env4/
-│   └── env5/
+├── EgoVision/
+│   ├── scene1-outdoor/
+│   ├── scene2-outdoor/
+│   ├── scene3-outdoor/
+│   ├── scene4-outdoor/
+│   ├── scene5-outdoor/
+│   ├── scene6-indoor/
+│   ├── scene7-indoor/
+│   └── scene8-indoor/
 ├── processing/
 │   ├── chessboard/
 │   ├── camera_calibration.py
@@ -50,62 +49,72 @@ pip install -r requirements.txt
 
 Ensure you have installed OpenCV, NumPy, and other dependencies required by the three scripts.
 
+## ⚙️ Step-by-Step Processing Instructions
+
+### 1. 📌 Clone and Setup Environment
+
+```bash
+git clone https://github.com/your-repo/egovision-dataset.git
+cd egovision-dataset
+pip install -r requirements.txt
+```
+
+Ensure you have installed OpenCV, NumPy, PIL, and torchvision as required by the scripts.
+
 ### 2. 🔍 Camera Calibration (Optional)
 
 **Purpose**: Correct lens distortion and align egocentric images into a normalized projection space.
 
 **Script**: `calibration/camera_calibration.py`
 
-**Steps**:
-1. Place checkerboard images in `calibration/images/`.
-2. Set checkerboard size (e.g., 9x6) in the script.
-3. Run the script to generate calibration parameters (`.npz` file).
+**How it works**:
+- Uses checkerboard patterns for calibration.
+- Extracts corner points, refines them, and calculates camera matrix and distortion coefficients.
+- Optionally undistorts a sample image using the computed parameters.
 
+**Usage**:
 ```bash
-python calibration/camera_calibration.py
+python camera_calibration.py
 ```
 
-**Output**: `calibration_data.npz` (includes camera matrix and distortion coefficients)
+Make sure your calibration images are in a folder called `chessboard/`.
 
-### 3. 🧼 Image Preprocessing
+### 3. 🧼 Image Preprocessing (Optional)
 
-**Purpose**: Resize, crop, normalize, or rectify images for model compatibility.
+**Purpose**: Resize, normalize, grayscale conversion, and format conversion (you can try more image preprocessing methods).
 
 **Script**: `preprocessing/preprocessing.py`
 
-**Steps**:
-1. Specify input and output directories.
-2. Choose preprocessing operations (e.g., resize to 512x512, grayscale, rectification).
-3. If calibration is needed, load the `.npz` file generated earlier.
+**Functions**:
+- `resize_image`: Resize to a standard shape.
+- `normalize_image`: Normalize pixel values to [0,1].
+- `to_grayscale`: Convert to single-channel grayscale.
+- `pil_to_cv2` and `cv2_to_pil`: Convert between OpenCV and PIL formats.
 
-```bash
-python preprocessing/preprocessing.py --input data/raw --output data/processed --resize 512 512 --rectify calibration/calibration_data.npz
-```
+**Usage**: Import and apply the desired transformations in your pipeline.
 
-**Output**: Preprocessed images saved in `data/processed`
+### 4. 🔁 Data Augmentation (Optional)
 
-### 4. 🔁 Data Augmentation
-
-**Purpose**: Increase training data diversity for better model generalization.
+**Purpose**: Enrich dataset through transformation and increase robustness (you can try more data augmentation methods).
 
 **Script**: `augmentation/augmentation.py`
 
-**Supported Techniques**:
-- Random rotation, flip
-- Brightness/contrast adjustment
-- Noise injection
-- Perspective warp
+**Pipeline Includes**:
+- Horizontal/vertical flips
+- Random rotation
+- Color jitter (brightness, contrast, saturation, hue)
+- Resize
 
-**Steps**:
-```bash
-python augmentation/augmentation.py --input data/processed --output data/augmented --augmentations rotate flip brightness
+**Usage**:
+```python
+from augmentation import apply_augmentation
+augmented_tensor = apply_augmentation(image_cv2)
 ```
-
-**Output**: Augmented dataset in `data/augmented`
+Use OpenCV to read your image, and pass it to the augmentation pipeline.
 
 ### 5. ✅ Dataset Usage Example
 
-Use the processed data in your deep learning pipeline (e.g., PyTorch, TensorFlow). Sample code for loading and visualizing images is provided in the scripts.
+Use the processed data in your deep learning pipeline (e.g., PyTorch, TensorFlow). The provided scripts support camera calibration method and part of preprocessing and augmentation pipelines.
 
 ## 📚 Reference
 
@@ -116,6 +125,7 @@ If you use this dataset, please cite:
 ## 🧠 Applications
 
 The EgoVision dataset is suitable for:
-- Risk assessment automation
+- STF Risk assessment automation
 - PPE detection
 - Scene understanding in egocentric construction robotics
+- More to be explored...
